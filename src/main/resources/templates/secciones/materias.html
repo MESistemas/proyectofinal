@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <link rel="shortcut icon" href="/img/SanJose.png">
+        <title>SanjoSoft - Gestion de Alumnos</title>
+
+        <!-- Bootstrap core CSS-->
+        <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom fonts for this template-->
+        <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+        <!-- Page level plugin CSS-->
+        <link href="/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="/css/sb-admin.css" rel="stylesheet">
+
+    </head>
+
+    <body id="page-top">
+
+        <div th:replace="index :: nav">
+
+        </div>
+
+        <div id="wrapper">
+
+             <!-- Sidebar -->
+            <ul class="sidebar navbar-nav" th:fragment="sidebar">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="fas fa-home"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Secciones</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <a class="dropdown-item active" th:href="@{/secciones/cursos}"><i class="fas fa-graduation-cap"></i>  Alumnado</a>
+                        <a class="dropdown-item" th:href="@{/secciones/informes}"><i class="fas fa-archive"></i> Informes</a>
+                        <a class="dropdown-item" th:href="@{/secciones/mensajes}"><i class="far fa-envelope"></i> Mensajes</a>
+                    </div>
+                </li>
+              
+            </ul>
+
+            <div id="content-wrapper">
+
+                <div class="container-fluid">
+
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/secciones/cursos}">Cursos</a></li>
+                        <li class="breadcrumb-item active">Materias</li>
+                    </ol>
+
+                    <!-- Icon Cards -->
+                    <div th:replace="index :: icon_cards">
+
+                    </div>
+
+                    <!-- DataTables Example -->
+                    <div class="card mb-3">
+
+                        <div class="card-body">
+
+                            <div class="row">
+
+                                <div class="col-12"><h4 class="text-center"><i class="fas fa-book"></i> Materias: </h4></div>
+
+                                <!-- centrado -->
+                                <div class="offset-12 offset-md-3" th:if="${centrar_elemento}">
+
+                                </div>
+
+                                <div class="col-12 col-md-6 text-center" th:if="${centrar_elemento}" th:each="m : ${materias}">
+                                    <br>
+
+                                    <div class="card" style="box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><i class="fas fa-book"></i>  Materia: <b th:text="${m.nombre_Materia}"></b></h5>
+                                            <br>
+                                            <i class="fas fa-laptop text-center" style="font-size: 100px;"></i>
+                                            <br>
+                                            <br>
+                                            <p class="card-text"><i class="fas fa-chalkboard-teacher"></i> Profesor/a: Espindola, Luisina</p>
+                                            <p class="card-text"><i class="far fa-clock"></i> Horario: <b th:text="${m.hr_inicio}"></b> <b> a </b> <b th:text="${m.hr_fin}"></b></p>
+                                            <p class="card-text"><i class="fas fa-chalkboard"></i> Curso: <b th:text="${curso}"></b></p>
+                                            <a class="btn btn-outline-success" th:href="@{/secciones/alumnos/} + ${m.getCurso().getId()} + '/' + ${m.getId()}"><i class="far fa-check-square"></i> Seleccionar</a>
+                                            <a class="btn btn-outline-info" th:href="@{/secciones/formulario_materia/} + ${m.getCurso().getId()}"><i class="far fa-edit"></i> Modificar</a>
+                                            <a class="btn btn-outline-warning" th:href="@{/secciones/agendas/} + ${m.getId()}"><i class="far fa-calendar-alt"></i> Agenda</a>
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                </div>
+
+                                <div class="offset-12 offset-md-3" th:if="${centrar_elemento}">
+
+                                </div>
+                                <!-- -->
+
+                                <!-- no centrado -->
+                                <div class="col-12 col-md-6 text-center" th:if="${no_centrar_elemento}" th:each="m : ${materias}">
+                                    <br>
+
+                                    <div class="card" style="box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><i class="fas fa-book"></i>  Materia: <b th:text="${m.nombre_Materia}"></b></h5>
+                                            <br>
+                                            <i class="fas fa-laptop text-center" style="font-size: 100px;"></i>
+                                            <br>
+                                            <br>
+                                            <p class="card-text"><i class="fas fa-chalkboard-teacher"></i> Profesor/a: Espindola, Luisina</p>
+                                            <p class="card-text"><i class="far fa-clock"></i> Horario: <p th:text="${m.hr_inicio}"></p> <p> a </p> <p th:text="${m.hr_fin}"></p></p>
+                                            <p class="card-text"><i class="fas fa-chalkboard"></i> Curso: <b th:text="${curso}"></b></p>
+                                            <a class="btn btn-outline-success" th:href="@{/secciones/alumnos/} + ${m.getCurso().getId()} + '/' + ${m.getId()}"><i class="far fa-check-square"></i> Seleccionar</a>
+                                            <a class="btn btn-outline-info" th:href="@{/secciones/formulario_materia/} + ${m.getCurso().getId()}"><i class="far fa-edit"></i> Modificar</a>
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                </div>
+                                <!-- -->
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+                <!-- Sticky Footer -->
+                <div th:replace="index :: footer">
+
+                </div>
+
+            </div>
+            <!-- /.content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+         <!-- Logout Modal-->
+        <div th:replace="index :: modal">
+
+        </div>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="/vendor/jquery/jquery.min.js"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Page level plugin JavaScript-->
+        <script src="/vendor/datatables/jquery.dataTables.js"></script>
+        <script src="/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="/js/sb-admin.min.js"></script>
+
+        <!-- Demo scripts for this page-->
+        <script src="/js/demo/datatables-demo.js"></script>
+
+    </body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <link rel="shortcut icon" href="/img/SanJose.png">
+        <title>SanjoSoft - Gestion de Alumnos</title>
+
+        <!-- Bootstrap core CSS-->
+        <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom fonts for this template-->
+        <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+        <!-- Page level plugin CSS-->
+        <link href="/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="/css/sb-admin.css" rel="stylesheet">
+
+    </head>
+
+    <body id="page-top">
+
+        <div th:replace="index :: nav">
+
+        </div>
+
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <ul class="sidebar navbar-nav" th:fragment="sidebar">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="fas fa-home"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Secciones</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <a class="dropdown-item active" th:href="@{/secciones/cursos}"><i class="fas fa-graduation-cap"></i>  Alumnado</a>
+                        <a class="dropdown-item" th:href="@{/secciones/informes}"><i class="fas fa-archive"></i> Informes</a>
+                        <a class="dropdown-item" th:href="@{/secciones/mensajes}"><i class="far fa-envelope"></i> Mensajes</a>
+                    </div>
+                </li>
+            
+            </ul>
+
+            <div id="content-wrapper">
+
+                <div class="container-fluid">
+
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a th:href="@{/secciones/alumnos/} + ${curso.getId()} + '/' + ${materia}">Alumnos</a>
+                        </li>
+                        <li class="breadcrumb-item active">Formulario</li>
+                    </ol>
+
+                    <!-- Icon Cards -->
+                    <div th:replace="index :: icon_cards">
+
+                    </div>
+
+                    <!-- DataTables Example -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+
+                            <form th:action="@{/secciones/formulario_alumno}" th:object="${alumno}" method="post">
+                                <h5 th:text="${body_titulo}"></h5>
+
+
+                                <b th:text="${error}" style="color: red"></b>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <br>
+                                        <i class="far fa-address-book"></i> Nombre: 
+                                        <input type="text" class="form-control" maxlength="20" th:field="*{nombre}">
+
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <br>
+                                        <i class="fas fa-address-book"></i> Apellido: 
+                                        <input type="text" class="form-control" maxlength="15" th:field="*{apellido}">
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <br>
+                                        <i class="far fa-address-card"></i> Documento: 
+                                        <input type="text" class="form-control" maxlength="8" onkeypress="return check(event)" name="dni" th:field="*{dni}">
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <br>
+                                        <i class="far fa-address-card"></i> Género: 
+                                        <br>
+                                        <div class="form-check form-check-inline">
+
+                                            <i class="fas fa-mars" style="margin-right:5px"></i> Masculino
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" style="margin-left:5px" id="inlineRadio1" value="M" th:field="*{genero}" required>
+                                            <i class="fas fa-venus" style="margin-right:5px"></i> Femenino
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" style="margin-left:5px" id="inlineRadio1" value="F" th:field="*{genero}" required>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <br>
+                                        <i class="far fa-calendar-alt"></i> Fecha de Nacimiento: 
+                                        <input type="date" class="form-control" th:field="*{fecha_Nacimiento}" required="">
+
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <br>
+                                        <i class="fas fa-chalkboard-teacher"></i> Curso: 
+                                        <input type="text" class="form-control" th:value="${curso}" disabled>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-success"> <i class="fas fa-save"></i> Guardar </button>
+                                        <a class="btn btn-danger" th:href="@{/secciones/alumnos/} + ${curso.getId()} + '/' + ${materia}"> <i class="fas fa-times"></i> Cancelar</a>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+                <!-- Sticky Footer -->
+                <div th:replace="index :: footer">
+
+                </div>
+
+            </div>
+            <!-- /.content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+         <!-- Logout Modal-->
+        <div th:replace="index :: modal">
+
+        </div>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="/vendor/jquery/jquery.min.js"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Page level plugin JavaScript-->
+        <script src="/vendor/datatables/jquery.dataTables.js"></script>
+        <script src="/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="/js/sb-admin.min.js"></script>
+
+        <!-- Demo scripts for this page-->
+        <script src="/js/demo/datatables-demo.js"></script>
+
+        <script>
+
+                                            function check(e) {
+                                                tecla = (document.all) ? e.keyCode : e.which;
+
+                                                //Tecla de retroceso para borrar, siempre la permite
+                                                if (tecla == 8) {
+                                                    return true;
+                                                }
+
+                                                // Patron de entrada, en este caso solo acepta numeros y letras
+                                                patron = /[0-9]/;
+                                                tecla_final = String.fromCharCode(tecla);
+                                                return patron.test(tecla_final);
+                                            }
+
+        </script>
+
+    </body>
+
+</html>

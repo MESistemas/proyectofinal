@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <link rel="shortcut icon" href="/img/SanJose.png">
+        <title>SanjoSoft - Gestion de Alumnos</title>
+
+        <!-- Bootstrap core CSS-->
+        <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom fonts for this template-->
+        <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+        <!-- Page level plugin CSS-->
+        <link href="/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="/css/sb-admin.css" rel="stylesheet">
+
+    </head>
+
+    <body id="page-top">
+
+        <div th:replace="index :: nav">
+
+        </div>
+
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <ul class="sidebar navbar-nav" th:fragment="sidebar">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="fas fa-home"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Secciones</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <a class="dropdown-item" th:href="@{/secciones/cursos}"><i class="fas fa-graduation-cap"></i>  Alumnado</a>
+                        <a class="dropdown-item" th:href="@{/secciones/informes}"><i class="fas fa-archive"></i> Informes</a>
+                        <a class="dropdown-item active" th:href="@{/secciones/mensajes}"><i class="far fa-envelope"></i> Mensajes</a>
+                    </div>
+                </li>
+               
+            </ul>
+
+            <div id="content-wrapper">
+
+                <div class="container-fluid">
+
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active">
+                            Mensajes
+                        </li>
+                    </ol>
+
+                    <!-- Icon Cards -->
+                    <div th:replace="index :: icon_cards">
+
+                    </div>
+
+                    <!-- DataTables Example -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <form method="POST" th:action="@{/secciones/mensajes}" id="emailForm">
+                                <h5>Enviar Mensaje</h5>
+                                <br>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label><i class="fas fa-user"></i> De:</label>
+                                        <input type="text" class="form-control" placeholder="matiasespindolads@gmail.com" disabled>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label><i class="fas fa-at"></i> Para:</label>
+                                        <input type="email" class="form-control" name="correo" maxlength="55" placeholder="Para" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label><i class="far fa-envelope-open"></i> Asunto:</label>
+                                        <input type="text" name="asunto" class="form-control" maxlength="15" placeholder="Asunto" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label><i class="fas fa-address-book"></i> Contacto:</label>
+                                        <input type="text" name="contacto" class="form-control" maxlength="25" placeholder="Nombre" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="far fa-envelope"></i> Mensaje:</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" maxlength="100" name="mensaje" rows="3" required></textarea>
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-mail-bulk"></i> Enviar</button>
+                                <a th:href="@{/}" class="btn btn-danger"><i class="fas fa-times"></i> Cancelar</a>
+                            </form>
+                        </div>
+                       
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+                <!-- Sticky Footer -->
+                <div th:replace="index :: footer">
+
+                </div>
+
+            </div>
+            <!-- /.content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div th:replace="index :: modal">
+
+        </div>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="/vendor/jquery/jquery.min.js"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Page level plugin JavaScript-->
+        <script src="/vendor/datatables/jquery.dataTables.js"></script>
+        <script src="/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="/js/sb-admin.min.js"></script>
+
+        <!-- Demo scripts for this page-->
+        <script src="/js/demo/datatables-demo.js"></script>
+
+    </body>
+
+</html>
